@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ordep.spring_boot_essentials.Dto.ProdutoDto;
 import com.ordep.spring_boot_essentials.database.model.ProdutoEntity;
+import com.ordep.spring_boot_essentials.exception.NotFoundException;
 import com.ordep.spring_boot_essentials.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
@@ -39,7 +40,7 @@ public class ProductController {
 
 
     @PutMapping("/{id}")
-    public String putMethodName(@PathVariable Integer id, @RequestBody ProdutoDto produtoDto) {      
+    public String putMethodName(@PathVariable Integer id, @RequestBody ProdutoDto produtoDto) throws NotFoundException {      
         return productService.atualizarProduto(id, produtoDto).toString();
     }
 

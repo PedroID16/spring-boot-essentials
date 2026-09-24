@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ordep.spring_boot_essentials.Dto.ProdutoDto;
 import com.ordep.spring_boot_essentials.database.model.ProdutoEntity;
+import com.ordep.spring_boot_essentials.exception.NotFoundException;
 
 @Service
 public class ProductService {
@@ -50,11 +51,11 @@ public ProdutoEntity createProduct(ProdutoDto produtoDto) {
 
 }
 
-public ProdutoEntity atualizarProduto(Integer id, ProdutoDto produtoDto) {
+public ProdutoEntity atualizarProduto(Integer id, ProdutoDto produtoDto) throws NotFoundException {
 	ProdutoEntity produto = PRODUTOS.stream()
 			.filter(p -> p.getId() == id)
 			.findAny()
-			.orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+			.orElseThrow(() -> new NotFoundException("Produto não encontrado"));
 
 			produto.setNome(produtoDto.getNome());
 			produto.setPreco(produtoDto.getPreco());
